@@ -1,0 +1,11 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+    margin: 0 2rem;
+    width: -webkit-fill-available;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background: #fafafa;
+}
+
+.mat-form-field-wrapper {
+    padding-bottom: 0;
+}

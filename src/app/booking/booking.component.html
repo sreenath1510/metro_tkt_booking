@@ -1,0 +1,113 @@
+<h2>Metro Ticket Booking</h2>
+<hr>
+<div class="container">
+    <!-- Ticket Selection Area -->
+    <div class="card flex-col">
+        <div class="block">
+            <mat-form-field appearance="outline">
+                <mat-label>Source</mat-label>
+                <mat-select [(ngModel)]="source" disableOptionCentering>
+                    <mat-option *ngFor="let station of stationsList" [value]="station">
+                        {{station}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Destination</mat-label>
+                <mat-select [(ngModel)]="destination" disableOptionCentering>
+                    <mat-option *ngFor="let station of stationsList" [value]="station">
+                        {{station}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="block">
+            <mat-form-field appearance="outline">
+                <mat-label>Payment Type</mat-label>
+                <mat-select [(ngModel)]="selectedPaymentType" disableOptionCentering>
+                    <mat-option *ngFor="let type of paymentTypes" [value]="type">
+                        {{type}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Travel Type</mat-label>
+                <mat-select [(ngModel)]="selectedTravel" disableOptionCentering>
+                    <mat-option *ngFor="let type of travelTypes" [value]="type">
+                        {{type}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="block" *ngIf="isTypeCard()">
+            <mat-form-field style="width: 100px;">
+                <mat-label>Card Balance</mat-label>
+                <input matInput [value]="cardBalance" readonly>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="checkReturn()" style="width: 150px;">
+                <input matInput type="time" placeholder="Start Time" [(ngModel)]="startTime" />
+            </mat-form-field>
+
+            <mat-form-field *ngIf="checkReturn()" style="width: 150px">
+                <input matInput type="time" placeholder="End Time" [(ngModel)]="endTime" />
+            </mat-form-field>
+        </div>
+
+        <div class="center">
+            <button mat-raised-button color="primary" (click)="getFare()">Get Fare</button><br>
+            <span class="errror red">{{errorMsg}}</span>
+        </div>
+    </div>
+
+    <!-- Ticket Summary Area -->
+    <div class="card" *ngIf="showDetails">
+        <h4>Fare Details</h4>
+        <hr>
+        <!-- Cash Summary -->
+        <div class="flex-col pad" *ngIf="!isTypeCard()">
+            <div class="row">
+                <div class="col1">Total Fare <strong *ngIf="checkReturn()">x2</strong></div>
+                <div class="col2">: <span class="amount">{{ticketFare}}</span></div>
+            </div>
+            <p class="center">You may pay at Metro Counter for Physical Ticket</p>
+            <div class="center">
+                <button mat-raised-button color="secondary" (click)="pay()">Ok</button>
+            </div>
+        </div>
+
+        <!-- Card Summary -->
+        <div class="flex-col pad" *ngIf="isTypeCard()">
+            <div class="row">
+                <div class="col1">Available Card Balance</div>
+                <div class="col2">: <span class="amount">{{cardBalance}}</span></div>
+            </div>
+            <div class="row">
+                <div class="col1">Total Fare <strong *ngIf="checkReturn()">x2</strong></div>
+                <div class="col2">: <span class="amount red"> -{{ticketFareWithoutDiscount}}</span></div>
+            </div>
+            <div class="row">
+                <div class="col1">20% Discount</div>
+                <div class="col2">: <span class="amount green"> +{{discount1}}</span></div>
+            </div>
+            <div class="row" *ngIf="discount2 !== 0">
+                <div class="col1">5% Discount (Travel time less than 6hrs)</div>
+                <div class="col2">: <span class="amount green"> +{{discount2}}</span></div>
+            </div>
+            <div class="row">
+                <div class="col1">Net Fare</div>
+                <div class="col2">: <span class="amount red"> -{{ticketFare}}</span></div>
+            </div>
+            <div class="row">
+                <div class="col1">New Card Balance</div>
+                <div class="col2">: <span class="amount">{{cardBalance - ticketFare}}</span></div>
+            </div>
+            <div class="center">
+                <button mat-raised-button color="secondary" (click)="pay()">Pay</button>
+            </div>
+        </div>
+
+    </div>
+</div>

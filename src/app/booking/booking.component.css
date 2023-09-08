@@ -1,0 +1,71 @@
+.container {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.card {
+    width: max-content;
+    border-radius: 12px;
+    background: white;
+    box-shadow: 5px 5px 20px darkgray;
+    padding: 1rem;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.pad {
+    padding: 1rem 3rem 0;
+}
+
+.block {
+    display: flex;
+    width: -webkit-fill-available;
+    justify-content: space-evenly;
+    gap: 1rem;
+}
+
+.center {
+    text-align: center;
+}
+
+.row {
+    width: 100%;
+    display: flex;
+}
+
+.col1 {
+    width: 80%;
+}
+
+.col2 {
+    margin-left: 4px;
+    display: flex;
+}
+
+.amount {
+    width: 50px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.errror {
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
+}
